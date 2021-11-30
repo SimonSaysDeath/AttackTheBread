@@ -102,10 +102,18 @@ void draw()
     Acting=false;
   }
   if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.25/3&&mouseY>=displayHeight*2.25/3&&mouseX<=displayWidth*1.5/3&&mouseY<=displayHeight*2.5/3)//MoveUp Button//
-    if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.5/3&&mouseY>=displayHeight*2.25/3&&mouseX<=displayWidth*1.75/3&&mouseY<=displayHeight*2.75/3)//MoveRight Button//
-      if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.25/3&&mouseY>=displayHeight*2.5/3&&mouseX<=displayWidth*1.5/3&&mouseY<=displayHeight*2.5/3)//MoveLeft Button//
-        if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.5/3&&mouseY>=displayHeight*2.5/3&&mouseX<=displayWidth*1.75/3&&mouseY<=displayHeight*2.75/3)//MoveDown Button//
-          noLoop();
+  {
+  }
+  if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.5/3&&mouseY>=displayHeight*2.25/3&&mouseX<=displayWidth*1.75/3&&mouseY<=displayHeight*2.75/3)//MoveRight Button//
+  {
+  }
+  if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.25/3&&mouseY>=displayHeight*2.5/3&&mouseX<=displayWidth*1.5/3&&mouseY<=displayHeight*2.5/3)//MoveLeft Button//
+  {
+  }
+  if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.5/3&&mouseY>=displayHeight*2.5/3&&mouseX<=displayWidth*1.75/3&&mouseY<=displayHeight*2.75/3)//MoveDown Button//
+  {
+  }
+  noLoop();
 }
 void mousePressed()
 {  
