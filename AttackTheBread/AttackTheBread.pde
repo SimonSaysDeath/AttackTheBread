@@ -1,16 +1,55 @@
 String Action = "Action", Move= "Move", Quit = "Quit", No="No";
 String Attack = "Attack", Use = "Use";
-String Left = "Left", Right = "Right", Forwards = "Forwards", Backwards = "Backwards";
+String Left = "Left", Right = "Right", Up = "Up", Down = "Down";
+int Room;
 PImage WallRight;
 PImage WallLeft;
 PImage WallBack;
 PImage Floor;
 PImage WallExit;
 boolean BackHasWall, RightHasWall, LeftHasWall, BackHasExit;
-boolean ForwardMovePossible, RightMovePossible, LeftMovePossible, ForwardMoveIsExit;
+boolean UpMovePossible, RightMovePossible, LeftMovePossible, DownMovePossible, ForwardMoveIsExit;
 boolean Acting, Moving;
 boolean Attacking, Using;
 boolean MovingRight, MovingLeft, MovingUp, MovingDown;
+
+/*
+
+ Room 11 has walls on all sides except front, go Up.
+ Room 12 has walls on left and front, go right.
+ Room 22 has walls on right and down, go up.
+ Room 23 has walls on left and right, go up.
+ Room 24 has walls on right, go up or left.
+ 
+ BRANCH1
+ 
+ Button is in Room 25, Click Use.
+ Room 25 has walls on all sides except down, go down.
+ 
+ BRANCH2
+ 
+ Room 14 has walls on front and down, go left.
+ Room 04 has walls on left and down, go up.
+ 
+ Enemy is in Room 05, Click Attack.
+ 
+ Room 05 has walls on left and right, go up
+ Room 06 has walls on left and right, go up
+ Room 07 has walls on left and right, and the exit up, go up.
+ 
+ Map:
+ 
+ ⬛⬛⬛⬛⬛ ⬛EX⬛⬛⬛
+ ⬛⬜⬛⬛⬛ ⬛07⬛⬛⬛
+ ⬛⬜⬛⬛⬛ ⬛06⬛⬛⬛
+ ⬛⬜⬛⬜⬛ ⬛05⬛25⬛
+ ⬛⬜⬜⬜⬛ ⬛041424⬛
+ ⬛⬛⬛⬜⬛ ⬛⬛⬛23⬛⬛
+ ⬛⬛⬜⬜⬛ ⬛⬛1222⬛
+ ⬛⬛⬜⬛⬛ ⬛⬛11⬛⬛
+ ⬛⬛⬛⬛⬛ ⬛⬛⬛⬛⬛
+ 
+ */
 
 void setup()
 {
@@ -21,6 +60,7 @@ void setup()
   stroke(#000000);
   fill(#000000);
   rect(0, 0, displayWidth, displayHeight*2/3);
+  Room=11;
   WallRight = loadImage("WallRight.png");
   WallLeft = loadImage("WallLeft.png");
   WallBack = loadImage("WallBack.png");
@@ -44,6 +84,10 @@ void draw()
   textSize(25);
   text(No, displayWidth*0.01/3, displayHeight*2.99/3);
   image(Floor, displayWidth*0.5/4, displayHeight*0, displayWidth*3/4, displayHeight*2/3);
+
+  if (Room=11)
+  {
+  }
   if (BackHasWall==true)
   {
     image(WallBack, displayWidth*1/4, displayHeight*0, displayWidth*2/4, displayHeight*2/3);
@@ -51,13 +95,15 @@ void draw()
   {
     if (BackHasExit==true)
     {
-      ForwardMovePossible=true;
+      UpMovePossible=true;
       ForwardMoveIsExit=true;
     } else
     {
-      ForwardMovePossible=true;
+      UpMovePossible=true;
     }
   }
+
+
   if (RightHasWall==true)
   {
     image(WallRight, displayWidth*1.5/4, displayHeight*0, displayWidth*2/4, displayHeight*2/3);
@@ -70,6 +116,8 @@ void draw()
   } else {
     LeftMovePossible=true;
   }
+
+
   if (Acting==false&&mousePressed&&mouseX>=displayWidth*0.25/3&&mouseY>=displayHeight*2.25/3&&mouseX<=displayWidth*0.75/3&&mouseY<=displayHeight*2.75/3)//Action Button//
   {
     stroke(#000000);
@@ -98,20 +146,51 @@ void draw()
     rect(displayWidth*1.5/3, displayHeight*2.25/3, displayWidth*0.25/3, displayHeight*0.25/3);
     rect(displayWidth*1.25/3, displayHeight*2.5/3, displayWidth*0.25/3, displayHeight*0.25/3);
     rect(displayWidth*1.5/3, displayHeight*2.5/3, displayWidth*0.25/3, displayHeight*0.25/3);
+    stroke(#000000);
+    fill(#000000);
+    textSize(25);
+    text(Up, displayWidth*1.3/3, displayHeight*2.4/3);
+    text(Right, displayWidth*1.55/3, displayHeight*2.4/3);
+    text(Left, displayWidth*1.3/3, displayHeight*2.7/3);
+    text(Down, displayWidth*1.55/3, displayHeight*2.7/3);
     Moving=true;
     Acting=false;
   }
   if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.25/3&&mouseY>=displayHeight*2.25/3&&mouseX<=displayWidth*1.5/3&&mouseY<=displayHeight*2.5/3)//MoveUp Button//
   {
+    if (UpMovePossible==true)
+    {
+      Moving=false;
+      Room=Room+10;
+      redraw();
+    }
   }
   if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.5/3&&mouseY>=displayHeight*2.25/3&&mouseX<=displayWidth*1.75/3&&mouseY<=displayHeight*2.75/3)//MoveRight Button//
   {
+    if (RightMovePossible==true)
+    {
+      Moving=false;
+      Room=Room+01;
+      redraw();
+    }
   }
   if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.25/3&&mouseY>=displayHeight*2.5/3&&mouseX<=displayWidth*1.5/3&&mouseY<=displayHeight*2.5/3)//MoveLeft Button//
   {
+    if (LeftMovePossible==true)
+    {
+      Moving=false;
+      Room=Room-01;
+      redraw();
+    }
   }
   if (Moving==true&&mousePressed&&mouseX>=displayWidth*1.5/3&&mouseY>=displayHeight*2.5/3&&mouseX<=displayWidth*1.75/3&&mouseY<=displayHeight*2.75/3)//MoveDown Button//
   {
+    if (DownMovePossible==true)
+    {
+      Moving=false;
+      Room=Room-10;
+      redraw();
+    }
   }
   noLoop();
 }
