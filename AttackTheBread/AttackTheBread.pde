@@ -58,6 +58,7 @@ void setup()
 
   if (HomescreenMode==true)
   {
+    stroke(#FFFFFF);
     strokeWeight(5);
     rect(displayWidth*0/3, displayHeight*0/3, displayWidth*1/3, displayHeight*1/3);
     rect(displayWidth*1/3, displayHeight*0/3, displayWidth*1/3, displayHeight*1/3);
@@ -68,9 +69,6 @@ void setup()
     rect(displayWidth*0/3, displayHeight*2/3, displayWidth*1/3, displayHeight*1/3);
     rect(displayWidth*1/3, displayHeight*2/3, displayWidth*1/3, displayHeight*1/3);
     rect(displayWidth*2/3, displayHeight*2/3, displayWidth*1/3, displayHeight*1/3);
-    line(displayWidth*0.1/3, displayHeight*0.1/3, displayWidth*0.9/3, displayHeight*0.9/3);
-    line(displayWidth*0.77/3, displayHeight*0.9/3, displayWidth*0.9/3, displayHeight*0.9/3);    
-    line(displayWidth*0.9/3, displayHeight*0.66/3, displayWidth*0.9/3, displayHeight*0.9/3);
     fill(#000000);
     textSize(175);
     text("PLAY",displayWidth*1/3, displayHeight*1.1/3, displayWidth*1/3, displayHeight*0.9/3);
